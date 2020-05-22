@@ -59,6 +59,7 @@ export default class implements TransportAdapter {
     );
 
     this.connection = new Connection(port, this.parameters.address);
+    console.log(this.connection);
   }
 
   async disconnect(): Promise<void> {
