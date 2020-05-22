@@ -141,3 +141,4 @@ build/
 config/
 dist/
 fixtures/personal/
+*.printer
