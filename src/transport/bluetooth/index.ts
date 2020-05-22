@@ -35,7 +35,7 @@ export type BluetoothTransportConfiguration = {
 export default class implements TransportAdapter {
   private parameters: BluetoothParameters;
 
-  private ...connectingconnection: Connection | undefined;
+  private connection: Connection | undefined;
 
   constructor(parameters: BluetoothParameters) {
     this.parameters = parameters;
@@ -59,7 +59,6 @@ export default class implements TransportAdapter {
     );
 
     this.connection = new Connection(port, this.parameters.address);
-    console.log(this.connection);
   }
 
   async disconnect(): Promise<void> {
