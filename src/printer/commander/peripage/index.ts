@@ -1,6 +1,7 @@
 import * as escpos from '../escpos';
 
 const handshake = async (): Promise<Buffer[]> => {
+  console.log(Buffer.from(`\x10\xff\xfe\x01\x1b\x40\x00`, 'ascii'));
   return [
     // 16, -1, -2, 1, 27, 64, 0
     Buffer.from(`\x10\xff\xfe\x01\x1b\x40\x00`, 'ascii'),
