@@ -62,3 +62,30 @@ Future ideas include:
 ## How can I help?
 
 Right now, you probably can't very much. I'll tidy this up, add some tests, and then it's in a better shape for collaborating.
+
+## Notes
+
+### post-install for bluetooth
+
+post-install copy doesn't seem to work, so for bluetooth:
+
+```sh
+mkdir ./node_modules/node-bluetooth/build
+cp ./node_modules/bluetooth-serial-port/build/Release/BluetoothSerialPort.node ./node_modules/node-bluetooth/build
+```
+
+### imagemagic
+
+`gm` lib needs imagemagick, so install it before getting too wild
+
+TODO: check for `gm`, output a warning if it's missing
+
+### faces/personality
+
+currently, only the "print" command is wired up to do anything, and it ignores faces
+
+it would be nice to be able to control:
+
+a) content of faces
+b) whether or not to print the face
+c) bonus: configure the spacing of faces per-printer, and whether or not to print them or not
