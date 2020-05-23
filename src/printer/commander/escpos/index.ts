@@ -63,17 +63,14 @@ const raster = async (
   rasterMode: RasterMode = RasterMode.Normal
 ): Promise<Buffer[]> => {
   // XXX: 8k buffer is fairly conservative, but could be configurable if necessary?
-  const COMMAND_BUFFER_LENGTH = 8192 - 8; // add space for header!
-  console.log(bits.length);
-  if (width > COMMAND_BUFFER_LENGTH) {
+  const bufferLen = bits.length; // add space for header!
+  if (width > bufferLen) {
     throw new Error(
-      `image too wide to print! no room in buffer to draw a row. (buffer: ${COMMAND_BUFFER_LENGTH}, width: ${width}).`
+      `image too wide to print! no room in buffer to draw a row. (buffer: ${bufferLen}, width: ${width}).`
     );
   }
 
-  const maximumRowsThatCanFitInBuffer = Math.floor(
-    COMMAND_BUFFER_LENGTH / width
-  );
+  const maximumRowsThatCanFitInBuffer = Math.floor(bufferLen / width);
 
   const blobs = slice(bits, width * maximumRowsThatCanFitInBuffer);
 
