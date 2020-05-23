@@ -1,0 +1,17 @@
+{
+    "configurations": [
+    
+        {
+            "name": "Attach",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "restart": true,
+            "sourceMaps": true,
+            "outFiles": ["${workspaceRoot}"],
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "/home/jjfs85/sirius-client/"
+        }
+
+    ]
+}
