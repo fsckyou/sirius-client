@@ -51,7 +51,7 @@ export default class PeripagePrinter implements PrintableImageHandler {
 
     try {
       const bits = await image.asBIN();
-
+      await this.write(await peripage.wakeup());
       await this.write(await peripage.image(bits, this.parameters.image.width));
       await this.write(await peripage.feed(3));
     } catch (error) {
