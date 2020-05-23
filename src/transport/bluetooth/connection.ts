@@ -30,8 +30,6 @@ export default class {
     if (this.port == null) {
       throw new Error('no port to write to');
     }
-    console.log('bluetooth/connection.ts');
-    console.log(buffer);
     const write = promisify(this.port.write).bind(this.port);
     return await write(buffer, this.address);
   }
