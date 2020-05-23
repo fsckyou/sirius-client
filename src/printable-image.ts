@@ -17,6 +17,7 @@ class PrintableImage {
     if (this.gmState != null) {
       return this.gmState;
     }
+    console.log(this.bitmap);
 
     const gmState = im(this.bitmap);
 
