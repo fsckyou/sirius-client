@@ -12,7 +12,7 @@ const wakeup = async (): Promise<Buffer[]> => {
   ];
 };
 
-const setShutoffTime = async (time: number): Promise<Buffer[]> => {
+const setPowerOffTime = async (time: number): Promise<Buffer[]> => {
   const timeLow = time % 256;
   const timeHigh = time / 256;
   return [
@@ -24,6 +24,13 @@ const setShutoffTime = async (time: number): Promise<Buffer[]> => {
   ];
 };
 
+const getBatteryLevel = async (): Promise<Buffer[]> => {
+  return [
+    //16, -1, 80, -15
+    Buffer.from(`\x10\xff\x50\xf0`, 'ascii'),
+  ];
+};
+
 const setThickness = async (thickness: number): Promise<Buffer[]> => {
   return [
     // 16, -1, 16, 0, thickness
@@ -31,6 +38,6 @@ const setThickness = async (thickness: number): Promise<Buffer[]> => {
   ];
 };
 
-export { handshake, wakeup, setThickness, setShutoffTime };
+export { handshake, wakeup, setThickness, setPowerOffTime, getBatteryLevel };
 
 export { feed, raster as image } from '../escpos';
