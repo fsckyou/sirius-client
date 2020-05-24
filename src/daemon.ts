@@ -118,7 +118,7 @@ const daemon = new Daemon();
 process.on('SIGINT', async () => {
   logger.info('shutting down...');
   await daemon.shutdown();
-  process.kill(process.pid, 0);
+  process.exit();
 });
 
 export default daemon;
