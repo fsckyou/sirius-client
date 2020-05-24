@@ -42,7 +42,7 @@ export default class PeripagePrinter implements PrintableImageHandler {
 
     await this.write(await peripage.handshake());
     await this.write(await peripage.setShutoffTime(60 * 24));
-    await this.write(await peripage.setThickness(2));
+    await this.write(await peripage.setThickness(1));
   }
 
   async close(): Promise<void> {
