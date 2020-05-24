@@ -41,8 +41,6 @@ export default class PeripagePrinter implements PrintableImageHandler {
     await this.transport.connect();
 
     await this.write(await peripage.handshake());
-    await this.write(await peripage.wakeup());
-    await this.write(await peripage.setPowerOffTime(60 * 24));
   }
 
   async close(): Promise<void> {
@@ -54,7 +52,6 @@ export default class PeripagePrinter implements PrintableImageHandler {
 
     try {
       const bits = await image.asBIN();
-      await this.write(await peripage.wakeup());
       await this.write(await peripage.image(bits, this.parameters.image.width));
       await this.write(await peripage.feed(3));
     } catch (error) {
