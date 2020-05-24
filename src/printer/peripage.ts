@@ -44,7 +44,7 @@ export default class PeripagePrinter implements PrintableImageHandler {
   }
 
   async close(): Promise<void> {
-    await this.transport.disconnect();
+    this.transport.disconnect();
   }
 
   async print(image: PrintableImage): Promise<boolean> {
