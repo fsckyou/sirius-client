@@ -3,6 +3,7 @@ import { promisify } from 'util';
 
 import { TransportAdapter } from '../index';
 import logger from '../../logger';
+import os from 'os';
 
 export type USBParameters = {
   pid: number;
@@ -63,6 +64,17 @@ export default class implements TransportAdapter {
         try {
           await setAltSetting(iface.altSetting);
         } catch {}
+
+        if ('win32' !== os.platform()) {
+          if (iface.isKernelDriverActive()) {
+            try {
+              iface.detachKernelDriver();
+            } catch (e) {
+              logger.error('Could not detatch kernel driver: %s', e);
+            }
+          }
+        }
+
         iface.claim();
       })
     );
