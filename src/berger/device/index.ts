@@ -58,7 +58,7 @@ export type BergDeviceOptions = {
 };
 
 const defaultOptions: BergDeviceOptions = {
-  heartbeatInterval: 10_000,
+  heartbeatInterval: 4_000,
 };
 
 type BergDeviceState = {
