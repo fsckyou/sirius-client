@@ -40,7 +40,6 @@ const querySerialNumber = async (): Promise<Buffer[]> => {
 
 export {
   handshake,
-  wakeup,
   setPowerOffTime,
   queryModel,
   querySerialNumber,
