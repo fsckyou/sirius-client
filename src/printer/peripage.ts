@@ -60,11 +60,11 @@ export default class PeripagePrinter implements PrintableImageHandler {
       (await this.transport.read()).toString('ascii')
     );
 
-    await this.write(await peripage.queryBatteryLevel());
-    logger.verbose(
-      'battery level: %s',
-      (await this.transport.read()).readUInt16LE().toString()
-    );
+    // await this.write(await peripage.queryBatteryLevel());
+    // logger.verbose(
+    //   'battery level: %s',
+    //   (await this.transport.read()).readUInt16LE().toString()
+    // );
 
     logger.verbose('setting turn off time to 24 hours');
     await this.write(await peripage.setPowerOffTime(60 * 24));
