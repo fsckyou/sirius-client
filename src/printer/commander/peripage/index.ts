@@ -2,8 +2,34 @@ const CMD = '\x10';
 
 const handshake = async (): Promise<Buffer[]> => {
   return [
-    // 16, -1, -2, 1, 27, 64, 0
-    Buffer.from(`${CMD}\xff\xfe\x01\x1b\x40\x00`, 'ascii'),
+    // 16, -1, -2, 1
+    Buffer.from(`${CMD}\xff\xfe\x01`, 'ascii'),
+  ];
+};
+
+const wakeup = async (): Promise<Buffer[]> => {
+  return [
+    // Apparently 12 bytes of 0s wakes up a sleepy printer :\
+    Buffer.from(`\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00`, 'ascii'),
+  ];
+};
+
+const setPowerOffTime = async (minutes: number): Promise<Buffer[]> => {
+  const timeLow = minutes % 256;
+  const timeHigh = minutes / 256;
+  return [
+    // 16, -1, 18, (byte) (i2 / 256), (byte) (i2 % 256)
+    Buffer.from(
+      `${CMD}\xff\x12` + timeHigh.toString() + timeLow.toString(),
+      'ascii'
+    ),
+  ];
+};
+
+const queryBatteryLevel = async (): Promise<Buffer[]> => {
+  return [
+    //16, -1, 80, -15
+    Buffer.from(`${CMD}\xff\x50\xf0`, 'ascii'),
   ];
 };
 
@@ -19,6 +45,14 @@ const querySerialNumber = async (): Promise<Buffer[]> => {
   return [Buffer.from(`${CMD}\xff\x20\xf2`, 'ascii')];
 };
 
-export { handshake, queryModel, querySerialNumber, queryVersion };
+export {
+  handshake,
+  wakeup,
+  setPowerOffTime,
+  queryModel,
+  querySerialNumber,
+  queryVersion,
+  queryBatteryLevel,
+};
 
 export { feed, raster as image } from '../escpos';

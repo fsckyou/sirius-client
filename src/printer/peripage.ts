@@ -59,6 +59,15 @@ export default class PeripagePrinter implements PrintableImageHandler {
       'printer model: %s',
       (await this.transport.read()).toString('ascii')
     );
+
+    await this.write(await peripage.queryBatteryLevel());
+    logger.verbose(
+      'battery level: %s',
+      (await this.transport.read()).readUInt16LE().toString()
+    );
+
+    logger.verbose('setting turn off time to 24 hours');
+    await this.write(await peripage.setPowerOffTime(60 * 24));
   }
 
   async close(): Promise<void> {
@@ -69,8 +78,8 @@ export default class PeripagePrinter implements PrintableImageHandler {
     image.resize(this.parameters.image.width);
 
     try {
+      await this.write(await peripage.wakeup());
       const bits = await image.asBIN();
-
       await this.write(await peripage.image(bits, this.parameters.image.width));
       await this.write(await peripage.feed(3));
     } catch (error) {
