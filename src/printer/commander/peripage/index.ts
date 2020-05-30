@@ -3,7 +3,7 @@ const CMD = '\x10';
 const handshake = async (): Promise<Buffer[]> => {
   return [
     // 16, -1, -2, 1
-    Buffer.from(`${CMD}\xff\xfe\x01`, 'ascii'),
+    Buffer.from(`${CMD}\xff\xfe\x01\x1b\x40\x00`, 'ascii'),
   ];
 };
 
