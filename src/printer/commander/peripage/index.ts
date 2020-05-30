@@ -7,13 +7,6 @@ const handshake = async (): Promise<Buffer[]> => {
   ];
 };
 
-const wakeup = async (): Promise<Buffer[]> => {
-  return [
-    // Apparently 12 bytes of 0s wakes up a sleepy printer :\
-    Buffer.from(`\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00`, 'ascii'),
-  ];
-};
-
 const setPowerOffTime = async (minutes: number): Promise<Buffer[]> => {
   const timeLow = minutes % 256;
   const timeHigh = minutes / 256;
